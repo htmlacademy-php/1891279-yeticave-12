@@ -12,6 +12,9 @@ $adverts = [
     ['name' => 'Куртка для сноуборда DC Mutiny Charocal', 'cat' => 'Одежда', 'price' => '7500', 'url' => 'img/lot-5.jpg'],
     ['name' => 'Маска Oakley Canopy', 'cat' => 'Разное', 'price' => '5400', 'url' => 'img/lot-6.jpg']
 ];
+function price_format($input) {
+    return number_format($input, 0, ".", " ") . ' <b class="rub">р</b>';
+} 
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -88,7 +91,7 @@ $adverts = [
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?=$lot['price'] ?><b class="rub">р</b></span>
+                                <span class="lot__cost"><?=price_format($lot['price']) ?></span>
                             </div>
                             <div class="lot__timer timer">
                                 12:23
