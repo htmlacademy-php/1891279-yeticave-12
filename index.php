@@ -13,6 +13,7 @@ $adverts = [
     ['name' => 'Маска Oakley Canopy', 'cat' => 'Разное', 'price' => '5400', 'url' => 'img/lot-6.jpg']
 ];
 function price_format($input) {
+    $input = ceil($input);
     return number_format($input, 0, ".", " ") . ' <b class="rub">р</b>';
 } 
 ?>
