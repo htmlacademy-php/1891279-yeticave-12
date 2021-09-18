@@ -20,7 +20,7 @@ function hsc($input) {
     $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
     return $input;
 }
-require_once ('helpers.php');
+require 'helpers.php';
 $page_title = 'Главная';
 $main = include_template ('main.php', ['cats' => $cats, 'adverts' => $adverts]);
 $layout = include_template ('layout.php', ['main' => $main, 'user_name' => $user_name, 'page_title' => $page_title, 'is_auth' => $is_auth, 'cats' => $cats]);
