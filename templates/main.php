@@ -29,18 +29,10 @@
                             <span class="lot__amount">Стартовая цена</span>
                             <span class="lot__cost"><?=price_format($lot['price']) ?></span>
                         </div>
-                        <?php
-                            $range = date_range($lot['expiration']);
-                            if ($range[0] === '00'):
-                        ?>
-                        <div class="lot__timer timer timer--finishing">
-                            <?=$range[0] . ':' . $range[1] ?>
+                        <?php list($hours, $minutes) = date_range($lot['expiration']) ?>
+                        <div class="lot__timer timer <?php if ($hours === '00'): ?>timer--finishing<?php endif ?>">
+                            <?=hsc($hours . ':' . $minutes) ?>
                         </div>
-                        <?php else: ?>
-                        <div class="lot__timer timer">
-                            <?=$range[0] . ':' . $range[1] ?>
-                        </div>
-                        <?php endif ?>
                     </div>
                 </div>
             </li>
