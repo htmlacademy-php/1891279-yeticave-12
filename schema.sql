@@ -1,7 +1,7 @@
 CREATE DATABASE yeticave
 	DEFAULT CHARACTER SET utf8
 	DEFAULT COLLATE UTF8_GENERAL_CI;
-	
+
 USE YETICAVE;
 CREATE TABLE cats (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -19,23 +19,19 @@ CREATE TABLE lots (
 	image CHAR,
 	start_price INT,
 	exp_date TIMESTAMP,
-	bet_range INT
+	bet_range INT,
+	creator_id INT,
+	winner_id INT,
+	cat_id TINYINT
 );
-CREATE INDEX creation_date ON lots(creation_date);
-CREATE INDEX lot_name ON lots(lot_name);
-CREATE INDEX description ON lots(description);
-CREATE UNIQUE INDEX image ON lots(image);
-CREATE INDEX start_price ON lots(start_price);
-CREATE INDEX exp_date ON lots(exp_date);
-CREATE INDEX bet_range ON lots(bet_range);
 
 CREATE TABLE bets (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	bet_date TIMESTAMP,
-	price INT
+	price INT,
+	user_id INT,
+	lot_id INT
 );
-CREATE INDEX bet_date ON bets(bet_date);
-CREATE INDEX price ON bets(price);
 
 CREATE TABLE users (
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,10 +39,8 @@ CREATE TABLE users (
 	email CHAR,
 	user_name CHAR,
 	pass CHAR,
-	contacts CHAR
+	contacts CHAR,
+	lot_id INT,
+	bet_id INT
 );
-CREATE INDEX reg_date ON users(reg_date);
 CREATE UNIQUE INDEX email ON users(email);
-CREATE UNIQUE INDEX user_name ON users(user_name);
-CREATE INDEX pass ON users(pass);
-CREATE INDEX contacts ON users(contacts);lots
