@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `lots` (
   `bet_range` int(11) DEFAULT NULL,
   `creator_id` int(11) DEFAULT NULL,
   `winner_id` int(11) DEFAULT NULL,
-  `category_id` tinyint(4) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
