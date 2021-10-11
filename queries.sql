@@ -29,6 +29,9 @@ VALUES
 	('2021-09-29 07:00', 162000, 2, 2),
 	('2021-09-28 22:00', 13000, 2, 1),
 	('2021-09-29 15:00', 165000, 1, 2);
+	
+CREATE INDEX exp_date ON lots(exp_date);
+CREATE INDEX lot_id ON bets(lot_id);
 
 SELECT * FROM categories; # выбор всех категорий
 
