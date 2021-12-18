@@ -1,3 +1,17 @@
+<?php
+    $con = mysqli_connect("localhost", "root", "", "yeticave");
+    if (!$con) {
+        echo "Ошибка: " . mysqli_connect_error();
+    }
+    mysqli_set_charset($con, "utf8mb4");
+
+    $query = 'SELECT category_name, category_code FROM categories';
+    $result_categories = mysqli_query($con, $query);
+    if (!$result_categories) {
+        echo "Ошибка: " . mysqli_error($con);
+    }
+    $result_categories = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -51,9 +65,9 @@
     <nav class="nav">
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
-            <?php foreach ($cats as $category):?>
+            <?php foreach ($result_categories as $category):?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=hsc($category) ?></a>
+                    <a href="pages/all-lots.html"><?=hsc($category['category_name']) ?></a>
                 </li>
             <?php endforeach ?>
         </ul>
