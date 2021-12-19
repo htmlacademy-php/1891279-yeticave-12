@@ -5,18 +5,18 @@
     }
     mysqli_set_charset($con, "utf8mb4");
 
-    $query = 'SELECT category_name, category_code FROM categories';
+    $query = 'SELECT `category_name`, `category_code` FROM `categories`';
     $result_categories = mysqli_query($con, $query);
     if (!$result_categories) {
         echo "Ошибка: " . mysqli_error($con);
     }
-    $result_categories = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
+    $result_categories = mysqli_fetch_assoc($result_categories);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?=hsc($page_title) ?></title>
+    <title><?=hsc($page_title); ?></title>
     <link href="../css/normalize.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 </head>
@@ -36,13 +36,13 @@
             <a class="main-header__add-lot button" href="pages/add-lot.html">Добавить лот</a>
 
             <nav class="user-menu">
-                <?php if ($is_auth == 1): ?>
+                <?php if ($is_auth == 1) { ?>
                     <div class="user-menu__logged">
-                        <p><?=hsc($user_name) ?></p>
+                        <p><?=hsc($user_name); ?></p>
                         <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
                         <a class="user-menu__logout" href="#">Выход</a>
                     </div>
-                <?php else: ?>
+                <?php } else { ?>
                     <ul class="user-menu__list">
                         <li class="user-menu__item">
                             <a href="#">Регистрация</a>
@@ -51,13 +51,13 @@
                             <a href="#">Вход</a>
                         </li>
                     </ul>
-                <?php endif ?>
+                <?php } ?>
                 <!-- здесь должен быть PHP код для показа меню и данных пользователя -->
             </nav>
         </div>
     </header>
 
-    <main class="container"><?=$main ?></main>
+    <main class="container"><?=$main; ?></main>
 
 </div>
 
@@ -65,11 +65,11 @@
     <nav class="nav">
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
-            <?php foreach ($result_categories as $category):?>
+            <?php foreach ($result_categories as $category) { ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=hsc($category['category_name']) ?></a>
+                    <a href="pages/all-lots.html"><?=hsc($category['category_name']); ?></a>
                 </li>
-            <?php endforeach ?>
+            <?php } ?>
         </ul>
     </nav>
     <div class="main-footer__bottom container">
