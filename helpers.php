@@ -137,3 +137,29 @@ function include_template($name, array $data = []) {
 }
 
 
+function price_format($input) {
+    $input = ceil($input);
+    return number_format($input, 0, ".", " ") . ' <b class="rub">р</b>';
+}
+
+function hsc($input) {
+    $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    return $input;
+}
+
+function date_range($input) {
+    $input = strtotime($input);
+    $input -= time();
+    $input = floor($input / 60);
+    $hours = str_pad(floor($input / 60), 2, '0', STR_PAD_LEFT);
+    $minutes = str_pad(($input % 60), 2, '0', STR_PAD_LEFT);
+    $input = [$hours, $minutes];
+    return $input;
+}
+
+function lotURL($a) {
+    $param = ['id' => $a];
+    $query = http_build_query($param);
+    return "/" . "lot.php" . "?" . $query;
+}
+
