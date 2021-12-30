@@ -3,25 +3,28 @@
 
     $user_name = 'Савелий';
 
-    function price_format($input) {
-        $input = ceil($input);
-        return number_format($input, 0, ".", " ") . ' <b class="rub">р</b>';
-    }
-    function hsc($input) {
-        $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
-        return $input;
-    }
-    function date_range($input) {
-        $input = strtotime($input);
-        $input -= time();
-        $input = floor($input / 60);
-        $hours = str_pad(floor($input / 60), 2, '0', STR_PAD_LEFT);
-        $minutes = str_pad(($input % 60), 2, '0', STR_PAD_LEFT);
-        $input = [$hours, $minutes];
-        return $input;
-    }
     require 'helpers.php';
+
+    $con = mysqli_connect("localhost", "root", "", "yeticave");
+    if (!$con) {
+        echo "Ошибка: " . mysqli_connect_error();
+    }
+    mysqli_set_charset($con, "utf8mb4");
+    $query = 'SELECT `l`.`id`, `image`, `category_name`, `lot_name`, `start_price`, `exp_date` FROM `lots` `l` JOIN `categories` `c` ON `l`.`category_id` = `c`.`id`';
+    $result_lots = mysqli_query($con, $query);
+    if (!$result_lots) {
+        echo "Ошибка: " . mysqli_error($con);
+    }
+    $result_lots = mysqli_fetch_all($result_lots, MYSQLI_ASSOC);
+
+    $query = 'SELECT `category_name`, `category_code` FROM `categories`';
+    $result_categories = mysqli_query($con, $query);
+    if (!$result_categories) {
+        echo "Ошибка: " . mysqli_error($con);
+    }
+    $result_categories = mysqli_fetch_all($result_categories, MYSQLI_ASSOC);
+
     $page_title = 'Главная';
-    $main = include_template ('main.php', ['cats' => $cats, 'adverts' => $adverts]);
-    $layout = include_template ('layout.php', ['main' => $main, 'user_name' => $user_name, 'page_title' => $page_title, 'is_auth' => $is_auth, 'cats' => $cats]);
+    $main = include_template ('main.php', ['result_categories' => $result_categories, 'result_lots' => $result_lots]);
+    $layout = include_template ('layout.php', ['main' => $main, 'user_name' => $user_name, 'result_categories' => $result_categories, 'page_title' => $page_title, 'is_auth' => $is_auth]);
     echo $layout;
